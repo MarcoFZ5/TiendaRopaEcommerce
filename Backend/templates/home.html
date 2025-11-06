@@ -7,5 +7,9 @@
 </head>
 <body>
     <h1> Bienvenidos a la tienda de Ropa de {{ nombre }} </h1>
+
+    {% for p in all_productos %}
+    <p>{{ p.nombre }} -- {{ p.precio}}</p>
+    {% endfor %}
 </body>
 </html>
