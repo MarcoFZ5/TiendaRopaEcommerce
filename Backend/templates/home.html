@@ -24,28 +24,86 @@
     </div>
     </nav>
 
-    <div class="row g-3">  
-        
-        {% for p in productos %}
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+    <div class="row">
+    <div class="col-12 col-md-3 col-lg-2 mb-4">
+        <div class="list-group">
+            <a href="/" class="list-group-item list-group-item-action">
+            Todas
+            </a>
 
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">{{p.nombre}}</h5>
-                    <p class="card-text">{{p.descripcion}}</p>
+            {% for c in categorias %}
+            <a href="/?categoria={{ c.id_categoria }}" 
+               class="list-group-item list-group-item-action">
+                {{ c.nombre }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="col-12 col-md-9 col-lg-10">
+        <div class="row g-3">
+            {% for p in productos %}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+
+        <div class="card h-100 shadow-sm">
+
+            <div class="card-body">
+                <h5 class="card-title">{{ p.nombre }}</h5>
+                <p class="card-text">{{ p.descripcion }}</p>
+
+                <div class="mt-2">
+                    <strong>Tallas:</strong><br>
+
+                    {% for v in p.tallas %}
+                        <span class="badge bg-dark me-1">{{ v.talla }}</span>
+                    {% endfor %}
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">{{p.precio}}</li>
-                    <li class="list-group-item">{{p.stock}}</li>
-                    <li class="list-group-item">{{p.talla}}</li>
-                </ul>
+
             </div>
 
         </div>
-        {% endfor %}
+
+        </div>
+            {% endfor %}
+        </div>
+
+        <nav>
+            
+    <ul class="pagination">
+
+    {% if productos.has_prev %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ productos.prev_num }}{% if categoria_actual %}&categoria={{ categoria_actual }}{% endif %}">
+        Anterior
+      </a>
+    </li>
+    {% endif %}
+
+    {% for num in productos.iter_pages() %}
+      {% if num %}
+        <li class="page-item {% if num == productos.page %}active{% endif %}">
+          <a class="page-link" href="?page={{ num }}{% if categoria_actual %}&categoria={{ categoria_actual }}{% endif %}">
+            {{ num }}
+          </a>
+        </li>
+      {% else %}
+        <li class="page-item disabled"><span class="page-link">…</span></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if productos.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ productos.next_num }}{% if categoria_actual %}&categoria={{ categoria_actual }}{% endif %}">
+        Siguiente
+      </a>
+    </li>
+    {% endif %}
+
+  </ul>
+</nav>
+
+
     </div>
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
