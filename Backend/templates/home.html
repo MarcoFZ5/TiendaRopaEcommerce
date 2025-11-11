@@ -48,7 +48,11 @@
         <div class="card h-100 shadow-sm">
 
             <div class="card-body">
-                <h5 class="card-title">{{ p.nombre }}</h5>
+                <h5 class="card-title">
+                    <a href="/producto/{{ p.id_producto }}" class="text-decoration-none text-dark">
+                        {{ p.nombre }}
+                    </a>  
+                </h5>
                 <p class="card-text">{{ p.descripcion }}</p>
 
                 <div class="mt-2">
@@ -68,7 +72,7 @@
         </div>
 
         <nav>
-            
+
     <ul class="pagination">
 
     {% if productos.has_prev %}

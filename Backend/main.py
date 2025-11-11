@@ -8,8 +8,10 @@ def create_app():
     db.init_app(app)
 
     from controllers.home import home_bp
+    from controllers.producto import producto_bp
 
     app.register_blueprint(home_bp)
+    app.register_blueprint(producto_bp)
 
     return app
 

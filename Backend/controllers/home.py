@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request
-from services.producto_service import traerProductos, traerProductosPorCategoria
+from services.producto_service import traerProductos, traerProductosPorCategoria, producto_unico
 from services.categoria_service import traerCategorias
 
 home_bp = Blueprint("home", __name__)
