@@ -1,114 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Ropa</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda de Ropa</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/static/css/styles.css" />
 </head>
+
 <body>
-    
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Tienda de Ropa </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">Tienda de Ropa</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#"> Productos </a>
-            </li>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav me-3">
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Productos</a>
+          </li>
         </ul>
-        </div>
-    </div>
-    </nav>
 
+        <div class="cart-icon">
+          <a href="/carrito" class="text-dark position-relative">
+            <i class="bi bi-cart fs-4"></i>
+            {% set carrito = session.get('carrito', []) %}
+            {% if carrito %}
+              <span class="cart-badge">{{ carrito|length }}</span>
+            {% endif %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
     <div class="row">
-    <div class="col-12 col-md-3 col-lg-2 mb-4">
-        <div class="list-group">
-            <a href="/" class="list-group-item list-group-item-action">
-            Todas
-            </a>
 
-            {% for c in categorias %}
-            <a href="/?categoria={{ c.id_categoria }}" 
-               class="list-group-item list-group-item-action">
-                {{ c.nombre }}
-            </a>
-            {% endfor %}
+      <div class="col-12 col-md-3 col-lg-2 mb-4">
+        <div class="list-group shadow-sm rounded-3">
+          <a href="/" class="list-group-item list-group-item-action fw-semibold">
+            Todas las categorías
+          </a>
+
+          {% for c in categorias %}
+          <a href="/?categoria={{ c.id_categoria }}" 
+             class="list-group-item list-group-item-action">
+             {{ c.nombre }}
+          </a>
+          {% endfor %}
         </div>
-    </div>
+      </div>
 
-    <div class="col-12 col-md-9 col-lg-10">
+      <div class="col-12 col-md-9 col-lg-10">
         <div class="row g-3">
-            {% for p in productos %}
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-
-        <div class="card h-100 shadow-sm">
-
-            <div class="card-body">
+          {% for p in productos %}
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
                 <h5 class="card-title">
-                    <a href="/producto/{{ p.id_producto }}" class="text-decoration-none text-dark">
-                        {{ p.nombre }}
-                    </a>  
+                  <a href="/producto/{{ p.id_producto }}">{{ p.nombre }}</a>
                 </h5>
-                <p class="card-text">{{ p.descripcion }}</p>
+                <p class="card-text text-muted small">{{ p.descripcion }}</p>
 
                 <div class="mt-2">
-                    <strong>Tallas:</strong><br>
-
-                    {% for v in p.tallas %}
-                        <span class="badge bg-dark me-1">{{ v.talla }}</span>
-                    {% endfor %}
+                  <strong>Tallas:</strong><br>
+                  {% for v in p.tallas %}
+                    <span class="badge bg-dark me-1">{{ v.talla }}</span>
+                  {% endfor %}
                 </div>
-
+              </div>
             </div>
-
+          </div>
+          {% endfor %}
         </div>
 
-        </div>
+        <nav aria-label="Paginación" class="mt-4">
+          <ul class="pagination justify-content-center">
+            {% if productos.has_prev %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ productos.prev_num }}{% if categoria_actual %}&categoria={{ categoria_actual }}{% endif %}">Anterior</a>
+            </li>
+            {% endif %}
+
+            {% for num in productos.iter_pages() %}
+              {% if num %}
+                <li class="page-item {% if num == productos.page %}active{% endif %}">
+                  <a class="page-link" href="?page={{ num }}{% if categoria_actual %}&categoria={{ categoria_actual }}{% endif %}">{{ num }}</a>
+                </li>
+              {% else %}
+                <li class="page-item disabled"><span class="page-link">…</span></li>
+              {% endif %}
             {% endfor %}
-        </div>
 
-        <nav>
-
-    <ul class="pagination">
-
-    {% if productos.has_prev %}
-    <li class="page-item">
-      <a class="page-link" href="?page={{ productos.prev_num }}{% if categoria_actual %}&categoria={{ categoria_actual }}{% endif %}">
-        Anterior
-      </a>
-    </li>
-    {% endif %}
-
-    {% for num in productos.iter_pages() %}
-      {% if num %}
-        <li class="page-item {% if num == productos.page %}active{% endif %}">
-          <a class="page-link" href="?page={{ num }}{% if categoria_actual %}&categoria={{ categoria_actual }}{% endif %}">
-            {{ num }}
-          </a>
-        </li>
-      {% else %}
-        <li class="page-item disabled"><span class="page-link">…</span></li>
-      {% endif %}
-    {% endfor %}
-
-    {% if productos.has_next %}
-    <li class="page-item">
-      <a class="page-link" href="?page={{ productos.next_num }}{% if categoria_actual %}&categoria={{ categoria_actual }}{% endif %}">
-        Siguiente
-      </a>
-    </li>
-    {% endif %}
-
-  </ul>
-</nav>
-
-
+            {% if productos.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ productos.next_num }}{% if categoria_actual %}&categoria={{ categoria_actual }}{% endif %}">Siguiente</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
     </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <footer>
+    © 2025 Tienda de Ropa — Todos los derechos reservados
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

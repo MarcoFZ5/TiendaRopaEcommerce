@@ -1,5 +1,26 @@
-from models.models import Carrito, ProductoVariacion, ProductoCarrito
+from models.models import Carrito, ProductoVariacion, ProductoCarrito, Producto
 from main import db
+
+def obtener_detalle_carrito(carrito):
+    producto_detalle = []
+    total = 0
+
+    for producto in carrito:
+        variacion: ProductoVariacion = ProductoVariacion.query.get(producto["id_variacion"])
+
+        subtotal = int(producto["cantidad"]) * float(variacion.precio)
+        total += subtotal
+
+        if producto:
+            producto_detalle.append({
+                "nombre": variacion.producto.nombre,
+                "talla": variacion.talla,
+                "cantidad": producto["cantidad"],
+                "precio": variacion.precio,
+                "subtotal": subtotal
+            })
+
+    return total, producto_detalle
 
 def crear_carrito():
     carrito_bd = Carrito(metodo_pago="TARJETA")
@@ -7,7 +28,6 @@ def crear_carrito():
     db.session.commit()
 
     return carrito_bd
-
 
 def insertar_productos(carrito, carrito_bd: Carrito):
     total = 0

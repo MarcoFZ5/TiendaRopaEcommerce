@@ -1,27 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito de compras</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu carrito</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-    
-<h2>Carrito</h2>
 
-{% for item in carrito %}
-<p>
- Producto ID: {{ item.id_producto }} —
- Variación: {{ item.id_variacion }} —
- Cantidad: {{ item.cantidad }}
-</p>
-{% endfor %}
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">Tienda de Ropa</a>
 
-<form action="/procesar_carrito" method="POST">
-    <button class="btn btn-success mt-3">
-        Finalizar compra
-    </button>
-</form>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav me-3">
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Productos</a>
+          </li>
+        </ul>
+
+        <div class="cart-icon">
+          <a href="/carrito" class="text-dark position-relative">
+            <i class="bi bi-cart fs-4"></i>
+            {% set carrito = session.get('carrito', []) %}
+            {% if carrito %}
+              <span class="cart-badge">{{ carrito|length }}</span>
+            {% endif %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+<div class="container py-5">
+  <div class="product-container mx-auto" style="max-width: 900px;">
+    <h2 class="mb-4 text-center">Tu carrito</h2>
+
+    {% if productos %}
+    <table class="table table-hover align-middle text-center">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Talla</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in productos %}
+        <tr>
+          <td class="fw-semibold">{{ p.nombre }}</td>
+          <td>{{ p.talla }}</td>
+          <td>{{ p.cantidad }}</td>
+          <td>₡{{ "%.2f"|format(p.precio) }}</td>
+          <td class="text-danger fw-bold">₡{{ "%.2f"|format(p.subtotal) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="text-end mt-4">
+      <h4>Total: <span class="text-danger fw-bold">₡{{ "%.2f"|format(total) }}</span></h4>
+    </div>
+
+    <form action="/procesar_carrito" method="POST" class="text-end mt-4">
+      <button class="btn btn-primary btn-lg">Finalizar compra</button>
+    </form>
+
+    {% else %}
+      <div class="text-center py-5">
+        <p class="text-muted fs-5 mb-4">Tu carrito está vacío 🕳️</p>
+        <a href="/" class="btn btn-outline-dark btn-lg">Volver a la tienda</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
 
 </body>
 </html>

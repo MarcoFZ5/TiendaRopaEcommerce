@@ -1,12 +1,15 @@
 from flask import Blueprint, render_template, session, redirect
-from services.carrito_service import crear_carrito, insertar_productos
+from services.carrito_service import crear_carrito, insertar_productos, obtener_detalle_carrito
 
 carrito_bp = Blueprint("carrito_bp", __name__)
 
 @carrito_bp.route("/carrito")
 def carrito():
-    carrito = session.get("carrito", [])
-    return render_template("carrito.html", carrito = carrito)
+    carrito_session = session.get("carrito", [])
+
+    total, carrito_detalle = obtener_detalle_carrito(carrito_session)
+
+    return render_template("carrito.html", productos=carrito_detalle, total=total)
 
 @carrito_bp.route("/procesar_carrito", methods=["POST"])
 def procesar_carrito():

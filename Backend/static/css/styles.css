@@ -1,0 +1,125 @@
+/* === Estilo General === */
+body {
+  background-color: #f8f9fa;
+}
+
+/* === NAVBAR === */
+.navbar {
+  background-color: #fff !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #E02722 !important;
+}
+
+.nav-link {
+  color: #333 !important;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.nav-link:hover {
+  color: #E02722 !important;
+}
+
+/* === CARRITO === */
+.cart-icon {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: #E02722;
+  color: white;
+  border-radius: 50%;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+/* === TARJETAS DE PRODUCTO === */
+.card {
+  border: none;
+  border-radius: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.card-title a {
+  text-decoration: none;
+  color: #000;
+  transition: color 0.2s;
+}
+
+.card-title a:hover {
+  color: #E02722;
+}
+
+/* === LISTA (Por ejemplo, categorías o variaciones) === */
+.list-group-item {
+  border: none;
+  background-color: #fff;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.list-group-item:hover {
+  background-color: #E02722;
+  color: #fff;
+}
+
+/* === PRODUCTO DETALLE === */
+.product-container {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.product-name {
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #222;
+}
+
+.product-price {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #E02722;
+}
+
+/* === BOTONES === */
+.btn-primary {
+  background-color: #E02722;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  padding: 0.75rem 1.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #c11e1a;
+}
+
+/* === FORMULARIOS === */
+.form-select,
+.form-control {
+  border-radius: 8px;
+}
+
+/* === FOOTER === */
+footer {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 0.9rem;
+  color: #777;
+}
