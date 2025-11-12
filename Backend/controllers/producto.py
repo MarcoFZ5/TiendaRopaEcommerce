@@ -20,8 +20,19 @@ def agregar_carrito():
     }
 
     carrito = session.get("carrito", [])
+    encontrado = False
 
-    carrito.append(item)
+    for producto in carrito:
+        if producto["id_variacion"] == item["id_variacion"]:
+            producto["cantidad"] += item["cantidad"]
+            encontrado = True
+            break
+
+    if not encontrado:
+        carrito.append(item)
+
     session["carrito"] = carrito
+
+    session.modified = True
 
     return redirect("/carrito")
