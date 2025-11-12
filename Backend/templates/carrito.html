@@ -61,6 +61,11 @@
           <td>{{ p.cantidad }}</td>
           <td>₡{{ "%.2f"|format(p.precio) }}</td>
           <td class="text-danger fw-bold">₡{{ "%.2f"|format(p.subtotal) }}</td>
+          <td>
+            <form action="/eliminar_del_carrito/{{ p.id_variacion }}" method="POST" style="display:inline;">
+               <button class="btn btn-sm btn-outline-danger">🗑 Quitar</button>
+            </form>
+          </td>
         </tr>
         {% endfor %}
       </tbody>

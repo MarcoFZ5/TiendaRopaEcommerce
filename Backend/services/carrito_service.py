@@ -13,6 +13,7 @@ def obtener_detalle_carrito(carrito):
 
         if producto:
             producto_detalle.append({
+                "id_variacion": variacion.id_variacion,
                 "nombre": variacion.producto.nombre,
                 "talla": variacion.talla,
                 "cantidad": producto["cantidad"],
@@ -55,3 +56,8 @@ def insertar_productos(carrito, carrito_bd: Carrito):
     carrito_bd.total = total
 
     db.session.commit()
+
+def eliminar(carrito, id_variacion):
+    return [producto for producto in carrito if int(producto["id_variacion"]) != int(id_variacion)]
+
+    
