@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu carrito</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">Tienda de Ropa</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav me-3">
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Productos</a>
+          </li>
+        </ul>
+
+        <div class="cart-icon">
+          <a href="/carrito" class="text-dark position-relative">
+            <i class="bi bi-cart fs-4"></i>
+            {% set carrito = session.get('carrito', []) %}
+            {% if carrito %}
+              <span class="cart-badge">{{ carrito|length }}</span>
+            {% endif %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer>
+    © 2025 Tienda de Ropa — Todos los derechos reservados
+  </footer>
+
+</body>
+</html>
