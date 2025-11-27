@@ -1,0 +1,45 @@
+{% extends "baseTemplate.html" %} 
+
+{% block content %}
+    <body>
+        <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="product-container">
+
+    <form action="/editarproducto/{{producto.id_producto}}" method="POST">
+         
+        <div class="mt-4">
+            <label class="form-label fw-semibold">Nombre:</label>
+            <input type="text" name="nombre" class="form-control w-50" value= "{{producto.nombre}}" required>
+
+            <!-- <button class="btn btn-secondary btn-lg mt-4 w-25">
+              <a href="/productos"></i>Volver a productos
+            </button> -->
+        </div>
+
+        <div class="mt-4">
+            <label class="form-label fw-semibold">Descripcion:</label>
+            <input type="text" name="descripcion" class="form-control w-100" value= "{{producto.descripcion}}" required>
+        </div>
+
+        <h5 class="mt-4 mb-2">Categorias</h5>
+        <select name="id_categoria" id="selectTalla" class="form-select" required>
+          {% for categoria in categorias %}
+          <option value="{{ categoria.id_categoria }}">
+            {{ categoria.nombre }}
+          </option>
+          {% endfor %}
+        </select>
+        
+        <button class="btn btn-primary btn-lg mt-4 w-100">
+              <i class="bi bi-pencil me-2"></i>Editar
+            </button>
+          </form>
+
+          </div>
+      </div>
+    </div>
+  </div>
+    </body>
+{% endblock %}
