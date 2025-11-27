@@ -1,0 +1,44 @@
+{% extends "baseTemplate.html" %} 
+
+{% block content %}
+    <body>
+        <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="product-container">
+
+    <form action="/editarvariacion/{{variacion.id_variacion}}" method="POST">
+
+        <input type="hidden" name="id_producto" value="{{ variacion.id_producto }}">
+
+        <div class="mt-4">
+            <label class="form-label fw-semibold">Talla:</label>
+            <input type="text" name="talla" class="form-control w-50" value= "{{variacion.talla}}" required>
+
+            <!-- <button class="btn btn-secondary btn-lg mt-4 w-25">
+              <a href="/productos"></i>Volver a productos
+            </button> -->
+        </div>
+
+        <div class="mt-4">
+            <label class="form-label fw-semibold">Stock:</label>
+            <input type="text" name="stock" class="form-control w-25" value= "{{variacion.stock}}" required>
+        </div>
+
+        <div class="mt-4">
+            <label class="form-label fw-semibold">Precio:</label>
+            <input type="number" name="precio" class="form-control w-25" value= "{{variacion.precio}}" required>
+        </div>
+
+     
+        <button class="btn btn-primary btn-lg mt-4 w-100">
+              <i class="bi bi-pencil me-2"></i>Editar
+            </button>
+          </form>
+
+          </div>
+      </div>
+    </div>
+  </div>
+    </body>
+{% endblock %}

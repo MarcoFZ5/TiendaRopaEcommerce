@@ -1,0 +1,47 @@
+{% extends "baseTemplate.html" %} 
+
+{% block content %}
+
+<body>
+    <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="product-container">
+
+            <h2> {{producto.nombre}}</h2>
+
+    <form action="/agregarvariacion/{{producto.id_producto}}" method="POST">
+
+        <input type="hidden" name="id_producto" value="{{ producto.id_producto }}">
+
+        <div class="mt-4">
+            <label class="form-label fw-semibold">Talla:</label>
+            <input type="text" name="talla" class="form-control w-25" placeholder="S, M, L..." required>
+
+            <!-- <button class="btn btn-secondary btn-lg mt-4 w-25">
+              <a href="/productos"></i>Volver a productos
+            </button> -->
+        </div>
+
+        <div class="mt-4">
+            <label class="form-label fw-semibold">Stock:</label>
+            <input type="number" name="stock" class="form-control w-25" placeholder="10..." min="1" max="999" required>
+        </div>
+
+        <div class="mt-4">
+            <label class="form-label fw-semibold">Precio:</label>
+            <input type="number" step="any" name="precio" class="form-control w-25" placeholder="10..." min="1" max="200_000" required>
+        </div>
+        
+        <button class="btn btn-primary btn-lg mt-4 w-100">
+              <i class="bi bi-cart-plus me-2"></i> Confirmar
+            </button>
+          </form>
+
+          </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+{% endblock %}

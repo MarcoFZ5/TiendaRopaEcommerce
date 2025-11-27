@@ -6,7 +6,7 @@
     <!-- Botón Agregar Producto -->
     <h2> {{ producto.nombre }}</h2>
     <div class="d-flex justify-content-end mb-3">
-      <a href="/agregarVariacion" class="btn btn-success">Agregar Variacion</a>
+      <a href="/agregarvariacion/{{producto.id_producto}}" class="btn btn-success">Agregar Variacion</a>
     </div>
 
     <!-- Tabla de productos -->
@@ -30,8 +30,8 @@
                 <td>{{ variacion.stock }}</td>
                 <td>{{ variacion.precio }}</td>
                 <td>
-                  <a href="/editarVariacion/{{ variacion.id_variacion }}" class="btn btn-sm btn-primary">Editar</a>
-                  <a href="/eliminarVariacion/{{ variacion.id_variacion }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Está seguro de eliminar este producto?');">Eliminar</a>
+                  <a href="/editarvariacion/{{ variacion.id_variacion }}" class="btn btn-sm btn-primary">Editar</a>
+                  <a href="/eliminarvariacion/{{ variacion.id_variacion }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Está seguro de eliminar este producto?');">Eliminar</a>
                 </td>
               </tr>
             {% endfor %}
