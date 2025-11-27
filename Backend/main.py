@@ -10,11 +10,13 @@ def create_app():
     from controllers.login import login_bp
     from controllers.home import home_bp
     from controllers.producto import producto_bp
+    from controllers.productos import productos_bp
     from controllers.carrito import carrito_bp
 
     app.register_blueprint(login_bp)
     app.register_blueprint(home_bp)
     app.register_blueprint(producto_bp)
+    app.register_blueprint(productos_bp)
     app.register_blueprint(carrito_bp)
 
     return app

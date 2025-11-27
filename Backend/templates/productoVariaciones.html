@@ -1,0 +1,48 @@
+{% extends "baseTemplate.html" %} 
+
+{% block content %}
+<body>
+  <div class="container py-5">
+    <!-- Botón Agregar Producto -->
+    <h2> {{ producto.nombre }}</h2>
+    <div class="d-flex justify-content-end mb-3">
+      <a href="/agregarVariacion" class="btn btn-success">Agregar Variacion</a>
+    </div>
+
+    <!-- Tabla de productos -->
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+              <th>ID</th>
+              <th>Talla</th>
+              <th>Stock</th>
+              <th>Precio</th>
+              <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if variaciones %}
+            {% for variacion in variaciones %}
+              <tr>
+                <td>{{ variacion.id_variacion }}</td>
+                <td>{{ variacion.talla }}</td>
+                <td>{{ variacion.stock }}</td>
+                <td>{{ variacion.precio }}</td>
+                <td>
+                  <a href="/editarVariacion/{{ variacion.id_variacion }}" class="btn btn-sm btn-primary">Editar</a>
+                  <a href="/eliminarVariacion/{{ variacion.id_variacion }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Está seguro de eliminar este producto?');">Eliminar</a>
+                </td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr>
+              <td colspan="5" class="text-center text-muted">No hay variaciones</td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+{% endblock %}

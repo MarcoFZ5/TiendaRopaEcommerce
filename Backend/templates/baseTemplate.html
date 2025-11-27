@@ -17,12 +17,15 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-
+      
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav me-3">
+          {% set rol = session.get("rol") %}
+          {% if rol == "ADMIN" %}
           <li class="nav-item">
-            <a class="nav-link active" href="/">Productos</a>
+            <a class="nav-link active" href="/productos">Productos</a>
           </li>
+          {% endif %}
         </ul>
 
         <div class="cart-icon">
