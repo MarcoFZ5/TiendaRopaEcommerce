@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, session
 from services.producto_service import traerProductos, traerProductosPorCategoria, producto_unico
 from services.categoria_service import traerCategorias
 
@@ -6,6 +6,8 @@ home_bp = Blueprint("home", __name__)
 
 @home_bp.route("/")
 def home():
+    if not session.get("rol"):
+        return redirect("/login")
     # Opciones
     pagina = request.args.get("page", 1, type=int)
     categoria = request.args.get("categoria", type= int)

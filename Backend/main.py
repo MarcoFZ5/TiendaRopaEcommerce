@@ -7,10 +7,12 @@ def create_app():
     app.config.from_object(Config)
     db.init_app(app)
 
+    from controllers.login import login_bp
     from controllers.home import home_bp
     from controllers.producto import producto_bp
     from controllers.carrito import carrito_bp
 
+    app.register_blueprint(login_bp)
     app.register_blueprint(home_bp)
     app.register_blueprint(producto_bp)
     app.register_blueprint(carrito_bp)
