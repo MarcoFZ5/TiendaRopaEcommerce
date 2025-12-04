@@ -60,4 +60,6 @@ def insertar_productos(carrito, carrito_bd: Carrito):
 def eliminar(carrito, id_variacion):
     return [producto for producto in carrito if int(producto["id_variacion"]) != int(id_variacion)]
 
+def info_ventas():
+    return Carrito.query.all()
     

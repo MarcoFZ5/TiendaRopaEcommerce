@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session, redirect
-from services.carrito_service import crear_carrito, insertar_productos, obtener_detalle_carrito, eliminar
+from services.carrito_service import crear_carrito, insertar_productos, obtener_detalle_carrito, eliminar, info_ventas
 
 carrito_bp = Blueprint("carrito_bp", __name__)
 
@@ -36,3 +36,12 @@ def eliminar_del_carrito(id_variacion):
     session.modified = True
 
     return redirect("/carrito")
+
+@carrito_bp.route("/info")
+def informacion_ventas():
+    ventas = info_ventas()
+
+    labels = [v.fecha_creacion for v in ventas]
+    datos = [v.total for v in ventas]
+
+    return render_template("grafico.html", etiquetas = labels, data = datos)

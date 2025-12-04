@@ -1,0 +1,25 @@
+{% extends "baseTemplate.html" %} 
+{% block content %}
+
+<div style="width: 80%; height: 60%; margin: 0 auto;">
+    <canvas id="miGrafico"></canvas>
+</div>
+
+<script>
+    const etiquetas = {{ etiquetas | tojson }};
+    const data = {{ data | tojson }};
+
+    new Chart(document.getElementById('miGrafico'), {
+        type: 'line',
+        data: {
+            labels: etiquetas,
+            datasets: [{
+                label: 'Ventas',
+                data: data,
+                borderWidth: 2
+            }]
+        }
+    });
+</script>
+
+{% endblock %}
