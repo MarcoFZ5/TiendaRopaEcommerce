@@ -24,7 +24,7 @@ def procesar_carrito():
 
     session.pop("carrito", None)
 
-    return redirect("/")
+    return redirect("/carrito?success=1")
     
 @carrito_bp.route("/eliminar_del_carrito/<int:id_variacion>", methods=["POST"])
 def eliminar_del_carrito(id_variacion):
@@ -45,3 +45,12 @@ def informacion_ventas():
     datos = [v.total for v in ventas]
 
     return render_template("grafico.html", etiquetas = labels, data = datos)
+
+@carrito_bp.route("/infobarras")
+def informacion_ventas_barras():
+    ventas = info_ventas()
+
+    labels = [v.fecha_creacion for v in ventas]
+    datos = [v.total for v in ventas]
+
+    return render_template("graficobarras.html", etiquetas = labels, data = datos)

@@ -7,7 +7,7 @@ def traerProductos(page: int):
         Producto.query
         .options(joinedload(Producto.tallas))
         .order_by(Producto.id_producto)
-        .paginate(page=page, per_page=20))
+        .paginate(page=page, per_page=8))
     
 def traerProductosPorCategoria(categoria: str, page: int):
     return (
@@ -15,7 +15,7 @@ def traerProductosPorCategoria(categoria: str, page: int):
         .filter_by(id_categoria=categoria)
         .options(joinedload(Producto.tallas))
         .order_by(Producto.id_producto)
-        .paginate(page=page, per_page=10)
+        .paginate(page=page, per_page=8)
     )
 
 def producto_unico(id: int):

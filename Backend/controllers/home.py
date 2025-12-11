@@ -8,6 +8,7 @@ home_bp = Blueprint("home", __name__)
 def home():
     if not session.get("rol"):
         return redirect("/login")
+    
     # Opciones
     pagina = request.args.get("page", 1, type=int)
     categoria = request.args.get("categoria", type= int)

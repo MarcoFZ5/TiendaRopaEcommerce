@@ -52,6 +52,18 @@
   </div>
 </div>
 
-</body>
+{% if request.args.get('success') %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+Swal.fire({
+  title: "¡Pedido realizado!",
+  text: "Tu compra fue procesada con éxito",
+  icon: "success",
+  confirmButtonText: "Continuar",
+  confirmButtonColor: "#E02722"
+});
+</script>
+{% endif %}
 
+</body>
 {% endblock %}
